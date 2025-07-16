@@ -196,3 +196,6 @@ join instrutores on instrutor = id_instrutor;
 ```
 - Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
 
+<img width="1055" height="637" alt="image" src="https://github.com/user-attachments/assets/7d992b1c-b936-41fd-936c-6085294a47da" />
+
+
