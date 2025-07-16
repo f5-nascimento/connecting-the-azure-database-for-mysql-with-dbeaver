@@ -81,31 +81,118 @@ Antes de começar, certifique-se de ter:
 - Após a mensagem de Conectador ser exibida, clique em **Concluir**.
 ---
 
-### 5. Criando o banco e tabelas
+### 5. Criando o banco de dados
 
-Clique em **SQL Editor** no DBeaver e execute o seguinte:
+<img width="1301" height="431" alt="bd" src="https://github.com/user-attachments/assets/93b2204c-a98c-4c11-9fdf-025441fb8005" />
+
+- No DBeaver, selecione o seu servidor MySQL listado (ex: server-mysql255.mysql.database.azure.com)
+- Em Banco de dados, clique com o botão direito do mouse e depois cliquem em Criar novo(a) Banco de dados.
+- Em **Nome do banco de dados**, digite o nome do banco (ex. regencia)
+- Clique em **Ok**
+
+### 6. Criando a tabela Cursos
+
+<img width="1198" height="832" alt="create" src="https://github.com/user-attachments/assets/d4337be3-94d6-499c-a35f-3d6d67d5426e" />
+
+- Clique em **SQL Editor** no DBeaver.
+- Clique em **Abrir script SQL** ou `F3`e execute o seguinte:
 
 ```sql
-CREATE DATABASE escola;
-
-USE escola;
-
-CREATE TABLE cursos (
+CREATE TABLE Cursos (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(100) NOT NULL,
-  limite_alunos INT DEFAULT 30
+  carga_horaria INT NOT NULL
 );
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
 
-CREATE TABLE alunos (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(100) NOT NULL
-);
+### 7. Inserindo registros em Cursos
 
-CREATE TABLE curso_aluno (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  aluno_id INT,
-  curso_id INT,
-  FOREIGN KEY (aluno_id) REFERENCES alunos(id) ON DELETE CASCADE,
-  FOREIGN KEY (curso_id) REFERENCES cursos(id) ON DELETE CASCADE
+- Para adicionar registros, execute o seguinte:
+```sql
+insert into cursos (nome, carga_horaria) values 
+('Programador Back-End',100),
+('Programador Front-End',100),
+('Administrador de Banco de Dados',80),
+('Operador de Sistemas Operacionais',120),
+('Assistente Administrativo',200)
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 8. Consultando registros em Cursos
+
+- Para consultar os registros, execute o seguinte:
+```sql
+select * from cursos;
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 9. Criando a tabela Instrutores
+
+- Para criar a tabela Instrutores, execute o seguinte:
+
+```sql
+create table instrutores(
+id_instrutor int primary key auto_increment,
+nome_instrutor varchar(100)
 );
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 10. Inserindo registros em Instrutores
+
+- Para adicionar registros execute o seguinte:
+```sql
+insert into instrutores (nome_instrutor) values 
+('João da Silva Andrade'),
+('Célia dos Santos Nascimento'),
+('Amarildo André Sá');
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 11. Consultando registros em Instrutores
+
+- Para consultar os registros execute o seguinte:
+```sql
+select * from instrutores;
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 12. Criando a tabela Alocação
+
+- Para criar a tabela Alocação, execute o seguinte:
+
+```sql
+create table alocacao(
+id_alocacao int primary key auto_increment,
+curso int,
+instrutor int,
+foreign key (curso) references cursos (id),
+foreign key (instrutor) references instrutores (id_instrutor)
+);
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 13. Inserindo registros em Alocação
+
+- Para adicionar registros execute o seguinte:
+```sql
+insert into alocacao (curso, instrutor) values
+(1,1),
+(2,1),
+(3,2),
+(4,3),
+(5,2);
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
+
+### 14. Consultando registros em Alocação
+
+- Para consultar os registros execute o seguinte:
+```sql
+select id_alocacao as "ID", nome as "Curso", nome_instrutor as "Instrutor" from alocacao
+join cursos on curso = id
+join instrutores on instrutor = id_instrutor;
+```
+- Clique em **Executar instrução SQL** ou `CTRL+Enter` para executar o código.
 
